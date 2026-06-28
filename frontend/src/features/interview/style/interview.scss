@@ -243,7 +243,6 @@ $severity-low: #3fb950;
 }
 
 
-roadmap
 .roadmap-list{
     display: flex;
     flex-direction: column;
@@ -453,13 +452,13 @@ border:1px solid;
 cursor: default;
 
 
-&-medium{
-    color: $severity-medium;
-    background-color: rgba($severity-medium,0.1);
-    border-color: rgba($severity-medium,0.25);
-}
+    &-high {
+        color: $severity-high;
+        background-color: rgba($severity-high, 0.1);
+        border-color: rgba($severity-high, 0.25);
+    }
 
-   &-medium {
+    &-medium {
         color: $severity-medium;
         background-color: rgba($severity-medium, 0.1);
         border-color: rgba($severity-medium, 0.25);
