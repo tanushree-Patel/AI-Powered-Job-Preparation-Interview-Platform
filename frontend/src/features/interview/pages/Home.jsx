@@ -1,7 +1,32 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import '../style/home.scss'
+import { useInterview } from '../hooks/useInterview'
+import { useNavigate } from 'react-router'
 
 const Home = () => {
+
+const {loading,generateReport,reports}=useInterview()
+const [jobDescription, setjobDescription] = useState("")
+const [selfDescription, setselfDescription] = useState("")
+const resumeInputRef=useRef()
+
+const navigate=useNavigate()
+
+const handleGenerateReport=async()=>{
+  const resumeFile=resumeInputRef.current.files[0]
+  const data=await generateReport({jobDescription,selfDescription,resumeFile})
+  navigate(`/interview/${data._id}`)
+}
+
+if(loading){
+  return (
+   <main className='loading-screen'>
+    <h1>Loading your interview plan...</h1>
+   </main>
+
+  )
+}
+
   return (
 <div className='home-page'>
    <header className='page-header'>
@@ -23,6 +48,9 @@ const Home = () => {
           </div>
 
           <textarea className='panel-textarea'
+          onChange={(e)=>{
+            setjobDescription(e.target.value) 
+          }}
           placeholder={`Paste the full job description here... \ne.g 'Senior Frontend Engineer at Google requires proficinecy in React, TypeScript and large-scale system design...'`}
           maxLength={5000}
 
@@ -53,16 +81,21 @@ const Home = () => {
               </span>
               <p className='dropdzone-title'>Click to upload or drag &amp; drop </p>
               <p className='dropzone-subtitle'>PDF (Max 5MB)</p>
-              <input hidden type="file" id='resume' name='resume' accept='.pdf' />
+              <input ref={resumeInputRef} hidden type="file" id='resume' name='resume' accept='.pdf' />
             </label>
           </div>
 
         {/*OR divider */}
         <div className="or-divider"><span>OR</span></div>
+        
           {/*Quick Self-description */}
           <div className="self-description">
             <label htmlFor="selfDescription" className='section-label'>Quick Self-Description</label>
-            <textarea name="selfDescription" id="selfDescription"
+            <textarea 
+            onChange={(e)=>{
+              setselfDescription(e.target.value)
+            }}
+            name="selfDescription" id="selfDescription"
             className='panel-textarea panel-textarea-short'
             placeholder="Briefly describe your experience \, key skills, and years of experience if you don't have a resume handy..."
             />
@@ -83,13 +116,35 @@ const Home = () => {
       <span className="footer-info">
         AI-Powered Strategy Generation &bull; Approx 30s
       </span> 
-      <button className="generate-btn">
+      <button 
+      onClick={handleGenerateReport}
+      className="generate-btn">
          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" /></svg>
         Generate Interview Report
         
       </button>
     </div>
  </div>
+
+ {/*Recent Reports Llist */}
+ {reports.length>0 && (
+  <section className="recent-reports">
+    <h2>My Recent Interview Plan</h2>
+    <ul className="reports-list">
+      {reports.map(report=>(
+        <li key={report._id} className="report-item" 
+        onClick={()=> navigate(`/interview/${report._id}`)}
+        >
+          <h3>{report.title || 'Untitled Position'}</h3>
+          <p className="report-meta">Generated on {new Date(report.createdAt).toLocaleDateString()}</p>
+          <p className={`match-score ${report.matchScore>=80 ? 'score-high' :report.matchScore>=60 ? 'score-mid' : 'score-low'}`}>
+            Match Score: {report.matchScore}%
+          </p>
+        </li>
+      ))}
+    </ul>
+  </section>
+ )}
 
 
  <footer className="page-footer">
