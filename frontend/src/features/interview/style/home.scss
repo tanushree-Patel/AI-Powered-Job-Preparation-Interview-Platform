@@ -1,28 +1,28 @@
-// ── Variables ────────────────────────────────────────────────────────────────
-$bg-page:        #0d1117;
-$bg-card:        #161b22;
-$bg-panel:       #1c2230;
-$bg-input:       #1e2535;
-$border-color:   #2a3348;
-$text-primary:   #e6edf3;
-$text-muted:     #7d8590;
-$accent:         #ff2d78;
-$accent-alt:     #ff6b9d;
+// Variables 
+$bg-page: #0d1117;
+$bg-card: #161b22;
+$bg-panel: #1c2230;
+$bg-input: #1e2535;
+$border-color: #2a3348;
+$text-primary: #e6edf3;
+$text-muted: #7d8590;
+$accent: #ff2d78;
+$accent-alt: #ff6b9d;
 $badge-required: #ff2d78;
-$badge-best:     #ff2d78;
-$info-bg:        #1b2a4a;
-$info-border:    #2d4a7a;
-$font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$badge-best: #ff2d78;
+$info-bg: #1b2a4a;
+$info-border: #2d4a7a;
+$font-stack: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
 
-.home-page{
+.home-page {
     width: 100%;
     min-height: 100vh;
     background-color: $bg-page;
     color: $text-primary;
     font-family: $font-stack;
 
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -30,95 +30,125 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
     gap: 2rem;
 }
 
-.page-header{
+.page-header {
     text-align: center;
 
-    h1{
-        font-size:2.25rem ;
+    h1 {
+        font-size: 2.25rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
         color: $text-primary;
     }
 
-    p{
+    p {
         color: $text-muted;
         font-size: 0.95rem;
         max-width: 480px;
-        margin:0 auto;
+        margin: 0 auto;
         line-height: 1.6;
     }
-    .highlight{
-        color:$accent
+
+    .highlight {
+        color: $accent
     }
 }
 
 
-.interview-card{
+.interview-card {
     width: 100%;
-    max-width:900px;
+    max-width: 900px;
     background-color: $bg-card;
     border: 1px solid $border-color;
     border-radius: 1rem;
     overflow: hidden;
 
-    &-body{
+    .title-input-section {
+        padding: 1.5rem 1.5rem 0.5rem;
+        border-bottom: 1px solid $border-color;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .title-input-field {
+            width: 100%;
+            background-color: $bg-input;
+            border: 1px solid $border-color;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            color: $text-primary;
+            font-family: $font-stack;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+
+            &::placeholder {
+                color: $text-muted;
+            }
+
+            &:focus {
+                border-color: $accent;
+            }
+        }
+    }
+
+    &-body {
         display: flex;
         min-height: 520px;
     }
 
-    &-footer{
+    &-footer {
         display: flex;
         align-items: center;
         justify-content: space-around;
         padding: 1rem 1.5rem;
         border-top: 1px solid $border-color;
 
-        .footer-info{
+        .footer-info {
             font-size: 0.8rem;
             color: $text-muted;
         }
     }
 }
 
-.panel-divider{
+.panel-divider {
     width: 1px;
     background-color: $border-color;
     flex-shrink: 0;
 }
 
-.panel{
-    flex:1;
-    display:flex;
+.panel {
+    flex: 1;
+    display: flex;
     flex-direction: column;
-    gap:1em;
+    gap: 1em;
     padding: 1.5rem;
 
-    &-header{
+    &-header {
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        
-       margin-bottom: 0.25rem;
 
-       h2{
-        font-size: 1rem;
-        font-weight: 600;
-        color: $text-primary;
-        flex: 1;
-       }
+        margin-bottom: 0.25rem;
+
+        h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: $text-primary;
+            flex: 1;
+        }
     }
 
-    &-icon{
+    &-icon {
         display: flex;
         align-items: center;
         color: $accent;
     }
 
-    &-textarea{
-        flex:1;
+    &-textarea {
+        flex: 1;
         width: 100%;
         background-color: $bg-input;
-        border:1px solid $border-color;
+        border: 1px solid $border-color;
         border-radius: 0.5rem;
         padding: 0.75rem 1rem;
         color: $text-primary;
@@ -129,63 +159,64 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
         transition: border-color 0.2s ease;
         line-height: 1.5;
 
-        &::placeholder{
+        &::placeholder {
             color: $text-muted;
         }
 
-        &:focus{
+        &:focus {
             border-color: $accent;
         }
-        &-short{
+
+        &-short {
             flex: unset;
             height: 96px;
         }
 
     }
 
-    &-left{
+    &-left {
         position: relative;
 
-        .char-counter{
+        .char-counter {
             position: absolute;
             bottom: 2rem;
             right: 2rem;
             color: $text-muted;
             font-size: 0.75rem;
-           
+
         }
     }
 
-    &-right{
-        gap:0.75rem;
+    &-right {
+        gap: 0.75rem;
     }
 }
 
 
-.badge{
+.badge {
     font-size: 0.7rem;
     font-weight: 600;
-  padding: 0.15rem 0.5rem;
-  border-radius: 0.3rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03rem;
 
-  &-required{
-    background-color: rgba($badge-required,0.15);
-    color: $badge-required;
-    border: 1px solid rgba($badge-required,0.3);
-  }
+    &-required {
+        background-color: rgba($badge-required, 0.15);
+        color: $badge-required;
+        border: 1px solid rgba($badge-required, 0.3);
+    }
 
-  &-best{
-    background-color: rgba($badge-best,0.15);
-    color:$badge-best;
-    border: 1px solid rgba($badge-best,0.3);
+    &-best {
+        background-color: rgba($badge-best, 0.15);
+        color: $badge-best;
+        border: 1px solid rgba($badge-best, 0.3);
 
-  }
+    }
 }
 
 
-.section-label{
+.section-label {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -195,14 +226,14 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
     margin-bottom: 0.25rem;
 }
 
-.upload-section{
+.upload-section {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 
 }
 
-    .dropzone{
+.dropzone {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -213,24 +244,25 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
     border: 2px dashed $border-color;
     border-radius: 0.6rem;
     cursor: pointer;
-    transition: border-color 0.2s ,background-color 0.2s;
+    transition: border-color 0.2s, background-color 0.2s;
 
-    &:hover{
+    &:hover {
         border-color: $accent;
-        background-color: rgba($accent,0.05);
+        background-color: rgba($accent, 0.05);
     }
 
-    &-icon{
+    &-icon {
         color: $accent;
         margin-bottom: 0.3rem;
     }
 
-    &-title{
+    &-title {
         font-size: 0.875rem;
         font-weight: 500;
         color: $text-primary;
     }
-    &-subtitle{
+
+    &-subtitle {
         font-size: 0.75rem;
         color: $text-muted;
         margin: 0;
@@ -238,32 +270,34 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
     }
 }
 
-.or-divider{
+.or-divider {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     color: $text-muted;
     font-size: 0.75rem;
 
-    &::before,&::after{
+    &::before,
+    &::after {
         content: '';
         flex: 1;
         height: 1px;
         background-color: $border-color;
     }
-    span{
+
+    span {
         white-space: nowrap;
     }
 }
 
-.self-description{
+.self-description {
     display: flex;
 
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.info-box{
+.info-box {
     display: flex;
     align-items: flex-start;
     gap: 0.6rem;
@@ -271,32 +305,32 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
     background-color: $info-bg;
     border: 1px solid $info-border;
     border-radius: 0.5rem;
-    
 
-    &-icon{
+
+    &-icon {
         flex-shrink: 0;
         color: #4a90e2;
         margin-top: 1px;
     }
 
-    p{
+    p {
         margin: 0;
         font-size: 0.8rem;
         color: #8ab4f8;
         line-height: 1.5;
 
-        strong{
+        strong {
             color: $text-primary;
         }
     }
 }
 
-.generate-btn{
+.generate-btn {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
-background-color: rgb(192, 33, 86);
+    background-color: rgb(192, 33, 86);
     color: #fff;
     font-size: 0.9rem;
     font-weight: 600;
@@ -306,32 +340,33 @@ background-color: rgb(192, 33, 86);
     transition: opacity 0.2s transform 0.1s;
     font-family: $font-stack;
 
-    &:hover{
+    &:hover {
         opacity: 0.8;
 
     }
-    &:active{
+
+    &:active {
         transform: scale(0.98);
     }
 }
 
-.page-footer{
+.page-footer {
     display: flex;
     gap: 1.5rem;
 
-    a{
+    a {
         font-size: 0.8rem;
         color: $text-muted;
         text-decoration: none;
         transition: color 0.2s;
 
-        &:hover{
+        &:hover {
             color: $text-primary;
         }
     }
 }
 
-// ── Recent Reports Section ──────────────────────────────────────────────────
+// ── Recent Reports Section 
 .recent-reports {
     width: 100%;
     max-width: 900px;
