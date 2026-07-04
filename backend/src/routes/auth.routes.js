@@ -32,4 +32,25 @@ authRouter.get('/logout',authController.logoutUserController)
  */
 authRouter.get('/get-me',authMiddleware.authUser,authController.getMeController)
 
+/**
+ * @route POST/api/auth/verify-email
+ * @description verify email with OTP
+ * @access Public
+ */
+authRouter.post('/verify-email',authController.verifyEmailController)
+
+/**
+ * @route GET/api/auth/refresh-token
+ * @description refresh access token
+ * @access Public
+ */
+authRouter.get('/refresh-token',authController.refreshTokenController)
+
+/**
+ * @route GET/api/auth/logout-all
+ * @description logout from all devices by revoking all sessions
+ * @access Public
+ */
+authRouter.get('/logout-all',authController.logoutAllUserController)
+
 module.exports=authRouter

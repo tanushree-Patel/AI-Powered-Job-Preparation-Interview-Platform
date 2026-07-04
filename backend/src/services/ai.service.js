@@ -32,7 +32,6 @@ const interviewReportSchema = z.object({
 })
 
 async function generateInterviewReport({ resume, selfDescription, jobDescription }) {
-
     const prompt = `Generate an interview report for a candidate with the following details:
                 Resume:${resume}
                 Self Description:${selfDescription}
@@ -47,7 +46,9 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
         }
     })
     console.log(response.text);
-    return interviewReportSchema.parse(JSON.parse(response.text))
+    const result = interviewReportSchema.parse(JSON.parse(response.text));
+
+    return result;
 }
 
 async function generatePdfFromHtml(htmlContent) {
