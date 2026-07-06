@@ -4,18 +4,20 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #161616;
+    background-color: var(--auth-bg);
     padding: 1.5rem;
+    transition: background-color 0.2s ease;
 
     .auth-box {
         display: flex;
         width: 100%;
         max-width: 900px;
         min-height: 520px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
+        border: 1px solid var(--auth-box-border);
         border-radius: 12px;
         overflow: hidden;
-        background-color: #161616;
+        background-color: var(--auth-box-bg);
+        transition: background-color 0.2s ease, border-color 0.2s ease;
 
         @media (max-width: 768px) {
             flex-direction: column;
@@ -26,17 +28,18 @@ main {
 
     .auth-left {
         flex: 1;
-        background: linear-gradient(135deg, #e1034d 0%, #7d012a 100%);
+        background: linear-gradient(135deg, #c28488 0%, #6e4548 100%);
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 3rem 2rem;
-        border-right: 1px solid rgba(255, 255, 255, 0.15);
+        border-right: 1px solid var(--auth-box-border);
         text-align: center;
+        transition: border-color 0.2s ease;
 
         @media (max-width: 768px) {
             border-right: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid var(--auth-box-border);
             padding: 2.5rem 2rem;
         }
 
@@ -56,7 +59,8 @@ main {
         align-items: center;
         justify-content: center;
         padding: 3rem 2rem;
-        background-color: #161616;
+        background-color: var(--auth-right-bg);
+        transition: background-color 0.2s ease;
 
         @media (max-width: 768px) {
             padding: 2.5rem 1.5rem;
@@ -65,26 +69,27 @@ main {
         .form-container {
             width: 100%;
             max-width: 360px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid var(--form-container-border);
             border-radius: 12px;
-            background-color: #1a1a1a;
+            background-color: var(--form-container-bg);
             padding: 2.5rem 2rem;
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            transition: background-color 0.2s ease, border-color 0.2s ease;
 
             h1 {
                 font-size: 1.75rem;
                 font-weight: 600;
-                color: #ffffff;
+                color: var(--form-title-color);
                 margin: 0;
             }
 
             p {
                 margin: 0;
                 font-size: 0.9rem;
-                color: #aaaaaa;
+                color: var(--form-text-muted);
                 text-align: center;
             }
         }
@@ -104,22 +109,22 @@ main {
         label {
             font-size: 0.85rem;
             font-weight: 500;
-            color: #cccccc;
+            color: var(--form-label-color);
         }
 
         input {
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--input-border);
             outline: none;
             padding: 0.75rem 1rem;
             border-radius: 8px;
-            background-color: #242424;
-            color: #ffffff;
+            background-color: var(--input-bg);
+            color: var(--input-text-color);
             font-size: 0.95rem;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s, color 0.2s;
 
             &:focus {
-                border-color: #e1034d;
-                box-shadow: 0 0 0 2px rgba(225, 3, 77, 0.25);
+                border-color: #c28488;
+                box-shadow: 0 0 0 2px rgba(194, 132, 136, 0.25);
             }
 
             &::placeholder {
@@ -129,13 +134,13 @@ main {
     }
 
     a {
-        color: #e1034d;
+        color: #c28488;
         text-decoration: none;
         font-weight: 500;
         transition: color 0.2s;
 
         &:hover {
-            color: #ff2b74;
+            color: #ca7d80;
             text-decoration: underline;
         }
     }

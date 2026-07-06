@@ -45,7 +45,7 @@ const Navbar = ({ user, handleLogout }) => {
     <nav className="navbar">
       <div className="nav-left">
         <Link to="/" className="nav-logo">
-          Interview <span className="highlight">AI</span>
+          Hello, <span className="highlight">{user?.username || "Guest"}</span>
         </Link>
 
         <Link to="/downloads" className="nav-link-btn">
@@ -58,7 +58,7 @@ const Navbar = ({ user, handleLogout }) => {
           className="theme-toggle-btn"
           onClick={toggleTheme}
         >
-          {theme === "dark" ? "🌙 Dark" : "☀️ Light"}   
+          {theme === "dark" ? "🌙 Dark" : "☀️ Light"}
         </button>
 
         <div

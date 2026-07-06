@@ -1,17 +1,18 @@
 // Variables 
-$bg-page: #0d1117;
-$bg-card: #161b22;
-$bg-panel: #1c2230;
-$bg-input: #1e2535;
-$border-color: #2a3348;
-$text-primary: #e6edf3;
-$text-muted: #7d8590;
-$accent: #ff2d78;
-$accent-alt: #ff6b9d;
-$badge-required: #ff2d78;
-$badge-best: #ff2d78;
-$info-bg: #1b2a4a;
-$info-border: #2d4a7a;
+$bg-page: var(--bg-page);
+$bg-card: var(--bg-card);
+$bg-panel: var(--bg-panel);
+$bg-input: var(--bg-input);
+$border-color: var(--border-color);
+$text-primary: var(--text-primary);
+$text-muted: var(--text-muted);
+$accent: #c28488;
+$accent-alt: #dbabb0;
+$badge-required: #c28488;
+$badge-best: #c28488;
+$info-bg: var(--info-bg);
+$info-border: var(--info-border);
+$info-text: var(--info-text);
 $font-stack: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
 
@@ -316,7 +317,7 @@ $font-stack: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, s
     p {
         margin: 0;
         font-size: 0.8rem;
-        color: #8ab4f8;
+        color: $info-text;
         line-height: 1.5;
 
         strong {
@@ -330,7 +331,7 @@ $font-stack: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, s
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
-    background-color: rgb(192, 33, 86);
+    background-color: #c28488;
     color: #fff;
     font-size: 0.9rem;
     font-weight: 600;
