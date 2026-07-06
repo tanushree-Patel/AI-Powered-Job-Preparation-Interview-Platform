@@ -1,0 +1,106 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-logo {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.highlight {
+  color: #c28488;
+}
+
+.nav-link-btn,
+.theme-toggle-btn {
+  padding: .5rem 1rem;
+  border: 1px solid #444;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.user-profile-container {
+  position: relative;
+}
+
+.avatar-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: #c28488;
+  color: white;
+  font-weight: bold;
+}
+
+.profile-dropdown {
+  position: absolute;
+  right: 0;
+  top: 45px;
+  width: 240px;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: .5rem;
+}
+
+.dropdown-header {
+  padding: .75rem;
+  border-bottom: 1px solid #444;
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: .7rem;
+  border: none;
+  background: transparent;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background: #333;
+}
+
+.signout-btn {
+  color: #ef4444;
+}
+
+body.light .navbar {
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+body.light .nav-logo,
+body.light .nav-link-btn,
+body.light .theme-toggle-btn,
+body.light .dropdown-item {
+  color: black;
+}
+
+body.light .profile-dropdown {
+  background: white;
+  border-color: #ddd;
+}
+
+body.light .avatar-btn {
+  background: #b46a70;
+}
