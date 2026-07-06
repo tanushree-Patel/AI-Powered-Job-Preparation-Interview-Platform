@@ -45,9 +45,13 @@ export const useAuth = () => {
         const getAndSetuser = async () => {
             try {
                 const data = await getMe()
-                setuser(data.user)
+                if (data?.user) {
+                    setuser(data.user)
+                } else {
+                    setuser(null)
+                }
             } catch (err) {
-                // setuser(null)
+                setuser(null)
             } finally {
                 setloading(false)
             }

@@ -124,11 +124,18 @@ async function loginUserController(req, res) {
             expiresIn: "15m"
         })
 
+        res.cookie('token', accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 15 * 60 * 1000 // 15 mins
+        })
+
         res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        maxAge: 7 * 24 * 60 * 60 * 1000
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
         res.status(200).json({
@@ -324,6 +331,13 @@ async function refreshTokenController(req, res) {
         const newRefreshTokenHash = await bcrypt.hash(newRefreshToken, 10)
         session.refreshTokenHash = newRefreshTokenHash
         await session.save()
+
+        res.cookie('token', accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 15 * 60 * 1000 // 15 mins
+        })
 
         res.cookie('refreshToken', newRefreshToken, {
             httpOnly: true,
