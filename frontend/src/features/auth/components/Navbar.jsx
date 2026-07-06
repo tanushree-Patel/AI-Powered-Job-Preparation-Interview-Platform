@@ -58,7 +58,7 @@ const Navbar = ({ user, handleLogout }) => {
           className="theme-toggle-btn"
           onClick={toggleTheme}
         >
-          {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
+          {theme === "dark" ? "🌙 Dark" : "☀️ Light"}   
         </button>
 
         <div

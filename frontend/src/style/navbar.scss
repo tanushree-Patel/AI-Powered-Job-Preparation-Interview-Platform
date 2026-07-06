@@ -66,6 +66,22 @@
   border-bottom: 1px solid #444;
 }
 
+.dropdown-username {
+  font-weight: 600;
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-email {
+  font-size: 0.85rem;
+  color: #aaa;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .dropdown-item {
   width: 100%;
   padding: .7rem;
@@ -99,6 +115,18 @@ body.light .dropdown-item {
 body.light .profile-dropdown {
   background: white;
   border-color: #ddd;
+}
+
+body.light .dropdown-header {
+  border-bottom-color: #ddd;
+}
+
+body.light .dropdown-username {
+  color: black;
+}
+
+body.light .dropdown-email {
+  color: #666;
 }
 
 body.light .avatar-btn {
