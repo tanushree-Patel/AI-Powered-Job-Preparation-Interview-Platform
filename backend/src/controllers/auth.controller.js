@@ -8,6 +8,8 @@ const sendEmail = require('../services/email.service')
 const { generateOTP, getOtpHtml } = require('../utils/utils')
 const otpModel = require('../models/otp.model')
 const config = require('../config/config')
+const googleAuthService = require('../services/googleAuth.service')
+const { HttpResponse } = require("@google/genai")
 
 /**
  * @name registerUserController
@@ -194,20 +196,22 @@ async function logoutUserController(req, res) {
             await session.save()
         }
 
-        res.clearCookie('refreshToken', {
+        res.clearCookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: true,
-            sameSite: 'strict'
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 15 * 60 * 1000
         })
 
         res.status(200).json({
             message: "User logged out successfully"
         })
     } catch (err) {
-        res.clearCookie('refreshToken', {
+        res.clearCookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: true,
-            sameSite: 'strict'
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 7 * 24 * 60 * 60 * 1000
         })
         return res.status(200).json({
             message: "User logged out successfully"
@@ -387,6 +391,141 @@ async function logoutAllUserController(req, res) {
     }
 }
 
+async function resendOtpController(req, res) {
+    try {
+        const { email } = req.body
+
+        if (!email) {
+            return res.status(400).json({
+                message: "Please provide an email address"
+            })
+        }
+
+        const user = await userModel.findOne({ email })
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            })
+        }
+        if (user.verified) {
+            return res.status(400).json({
+                message: "This email is already verified"
+            })
+        }
+
+        await otpModel.deleteMany({ email })
+
+        const otp = generateOTP()
+        const html = getOtpHtml(otp)
+        const otphash = await bcrypt(otp, 10)
+
+        await otpModel.create({
+            email,
+            user: user._id,
+            otpHash
+        })
+
+        await sendEmail(email, 'OTP verification', `Your OTP code is ${otp}`, html)
+
+        res.status(200).json({
+            message: "New OTP send successfully"
+        })
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal server error  during OTP resend"
+        })
+    }
+}
+
+async function googleRedirectController(req, res) {
+    const authorizeUrl = await googleAuthService.generateGoogleAuthUrl()
+    res.redirect(authorizeUrl)
+}
+
+async function googleCallbackController(req, res) {
+    try {
+        const { code } = req.query
+        if (!code) {
+            return res.redirect(`${config.FRONTEND_URL}/login?error=GOOGLE authentication failed`)
+        }
+
+        const payload = await googleAuthService.getGoogleUserFromCode(code)
+        const { email, name, email_verified } = payload
+        if (!email_verified) {
+            return res.redirect(`${config.FRONTEND_URL}/login?error=GOOGLE email not verified`)
+        }
+
+        let user = await userModel.findOne({ email })
+
+        if (!user) {
+            let baseUsername = name ? name.toLowerCase().replace(/\s+/g, '') : email.split('@')[0]
+            let username = baseUsername
+            let count = 1;
+            while (await userModel.findOne({ username })) {
+                username = `${baseUsername}${count}`
+                count++
+            }
+
+            const crypto = require('crypto')
+            const randomPassword = crypto.randomBytes(16).toString('hex')
+            const hash = await bcrypt.hash(randomPassword, 10)
+
+            user = await userModel.create({
+                username,
+                email,
+                password: hash,
+                verified: true,
+            })
+
+        }
+
+        const sessionId = new mongoose.Types.ObjectId()
+        const refreshToken = jwt.sign({
+            id: user._id,
+            sessionid: sessionId,
+        }, config.JWT_SECRET, {
+            expiresIn: '7d'
+        })
+        const refreshTokenHash = await bcrypt.hash(refreshToken, 10)
+
+        await sessionModel.create({
+            _id: sessionId,
+            user: user._id,
+            refreshTokenHash,
+            ip: req.ip,
+            userAgent: req.headers['user-agent']
+        })
+
+        const accessToken = jwt.sign({
+            id: user._id,
+            sessionid: sessionId
+        }, config.JWT_SECRET, {
+            expiresIn: '15m'
+        })
+
+        res.cookie('token', accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 15 * 60 * 1000
+        })
+
+        res.cookie('refreshToken', refreshToken, {
+            Httponly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        })
+
+        res.redirect(config.FRONTEND_URL)
+    } catch (err) {
+        console.error("google auth error: ", err)
+        res.redirect(`${config.FRONTEND_URL}/login?error=Google auth internal error`)
+
+    }
+}
+
+
 module.exports = {
     registerUserController,
     loginUserController,
@@ -394,5 +533,8 @@ module.exports = {
     getMeController,
     verifyEmailController,
     refreshTokenController,
-    logoutAllUserController
+    logoutAllUserController,
+    resendOtpController,
+    googleCallbackController,
+    googleRedirectController
 }

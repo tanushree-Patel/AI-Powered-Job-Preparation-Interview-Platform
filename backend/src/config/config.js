@@ -20,6 +20,13 @@ if (!process.env.GOOGLE_REFRESH_TOKEN) {
 if (!process.env.GOOGLE_USER) {
     throw new Error("GOOGLE_USER is not defined in environment variables")
 }
+if(!process.env.GOOGLE_CALLBACK_URL){
+    throw new Error("GOOGLE_CALLBACK_URL is not  defined in environment variables")
+}
+
+if(!process.env.FRONTEND_URL){
+    throw new Error("FRONTENT_URL is not defined in environment variables")
+}
 
 const config = {
     MONGO_URI: process.env.MONGO_URI,
@@ -27,7 +34,9 @@ const config = {
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     GOOGLE_REFRESH_TOKEN: process.env.GOOGLE_REFRESH_TOKEN,
-    GOOGLE_USER: process.env.GOOGLE_USER
+    GOOGLE_USER: process.env.GOOGLE_USER,
+    GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL,
+    FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5173'
 }
 
 module.exports = config
