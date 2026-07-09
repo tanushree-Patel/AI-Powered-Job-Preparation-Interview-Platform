@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $accent: #c28488;
 $severity-high: #ff4d4d;
 $severity-medium: #f5a623;
@@ -175,7 +177,7 @@ body:not(.light) {
             }
 
             &:hover {
-                background-color: darken($accent, 7%);
+                background-color: color.adjust($accent, $lightness: -7%);
             }
         }
 
