@@ -49,13 +49,15 @@ const Download = () => {
                       </span>
                     </div>
                   </div>
+
+                  <p className='download-hint-text'>If you want to generate a resume, click below:</p>
                   <div className='card-actions'>
                     <button 
                       onClick={() => getResumePdf(report._id)}
                       className='button primary-button card-download-btn'
                     >
                       <svg height="0.9rem" style={{ marginRight: "0.5rem" }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 19h16v-2H4v2zm9-10V3h-2v6H7l5 5 5-5h-4z"/></svg>
-                      Download PDF
+                       Generate &amp; Download
                     </button>
                     <button 
                       onClick={() => viewResumePdf(report._id)}

@@ -1,0 +1,209 @@
+$accent: #c28488;
+$severity-high: #ff4d4d;
+$severity-medium: #f5a623;
+$severity-low: #3fb950;
+
+body:not(.light) {
+    .interview-page {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    .interview-layout {
+        background-color: #1a1a1a;
+        border-color: #333333;
+    }
+
+    .interview-divider {
+        background-color: #333333;
+    }
+
+    .interview-nav {
+        .back-home-btn {
+            border-color: #333333;
+            color: #888888;
+
+            svg {
+                stroke: #888888;
+            }
+
+            &:hover {
+                border-color: $accent;
+                color: #ffffff;
+                background-color: rgba($accent, 0.05);
+
+                svg {
+                    stroke: $accent;
+                }
+            }
+        }
+
+        &-label {
+            color: #888888;
+        }
+
+        &-item {
+            color: #888888;
+
+            &:hover:not(.interview-nav-item-active) {
+                background-color: #242424;
+                color: #ffffff;
+            }
+        }
+    }
+
+    .content-header {
+        border-bottom-color: #333333;
+
+        h2 {
+            color: #ffffff;
+        }
+
+        &-count {
+            color: #888888;
+            background-color: #242424;
+            border-color: #333333;
+        }
+    }
+
+    .q-card {
+        background-color: #242424;
+        border-color: #333333;
+
+        &:hover {
+            border-color: #444444;
+        }
+
+        &-index {
+            color: $accent;
+            background: rgba($accent, 0.1);
+            border-color: rgba($accent, 0.2);
+        }
+
+        &-question {
+            color: #ffffff;
+        }
+
+        &-chevron {
+            color: #888888;
+        }
+
+        &-body {
+            border-top-color: #333333;
+        }
+
+        &-section {
+            p {
+                color: #aaaaaa;
+            }
+        }
+
+        &-tag {
+            &-intention {
+                color: #a78bfa;
+                background-color: rgba(167, 139, 250, 0.08);
+                border-color: rgba(167, 139, 250, 0.2);
+            }
+
+            &-answer {
+                color: #3fb950;
+                background-color: rgba(63, 185, 80, 0.08);
+                border-color: rgba(63, 185, 80, 0.2);
+            }
+        }
+    }
+
+    .roadmap-day {
+        &-badge {
+            color: $accent;
+            background-color: rgba($accent, 0.1);
+            border-color: rgba($accent, 0.25);
+        }
+
+        &-focus {
+            color: #ffffff;
+        }
+
+        &-tasks {
+            li {
+                color: #aaaaaa;
+            }
+        }
+
+        &-bullet {
+            background-color: #888888;
+        }
+    }
+
+    .sidebar-divider {
+        background-color: #333333;
+    }
+
+    .match-score {
+        &-label {
+            color: #888888;
+        }
+
+        &-value {
+            color: #ffffff;
+        }
+
+        &-pct {
+            color: #888888;
+        }
+
+        &-sub {
+            color: $severity-low;
+        }
+    }
+
+    .skill-gaps {
+        &-label {
+            color: #888888;
+        }
+    }
+
+    .download-btn-group {
+        border-color: #333333;
+        background-color: #242424;
+
+        .download-btn {
+            color: whitesmoke;
+
+            svg {
+                color: whitesmoke;
+            }
+
+            &:hover {
+                background-color: darken($accent, 7%);
+            }
+        }
+
+        .download-arrow-btn {
+            color: #888888;
+            border-left-color: #333333;
+
+            &:hover {
+                background-color: rgba($accent, 0.15);
+                color: #ffffff;
+            }
+
+            &-open {
+                color: $accent;
+                background-color: rgba($accent, 0.1);
+            }
+        }
+    }
+
+    .download-option-btn {
+        color: #ffffff;
+        background-color: rgba(36, 36, 36, 0.6);
+        border-color: #333333;
+
+        &:hover {
+            background-color: rgba($accent, 0.1);
+            border-color: $accent;
+            color: $accent;
+        }
+    }
+}

@@ -495,6 +495,23 @@ $severity-low: #3fb950;
     margin-top: auto; // Push to bottom of the sidebar if nav height allows
 }
 
+.download-hint-text {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 0.25rem;
+    text-align: center;
+    line-height: 1.3;
+}
+
+// In download.scss or interview.scss for card layout:
+.download-card .download-hint-text {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: left;
+}
+
+
 .download-btn-group {
     display: flex;
     align-items: stretch;
