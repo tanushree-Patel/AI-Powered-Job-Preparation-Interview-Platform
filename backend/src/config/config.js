@@ -36,7 +36,8 @@ const config = {
     GOOGLE_REFRESH_TOKEN: process.env.GOOGLE_REFRESH_TOKEN,
     GOOGLE_USER: process.env.GOOGLE_USER,
     GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL,
-    FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5173'
+    FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5173',
+    PORT:process.env.PORT
 }
 
 module.exports = config
