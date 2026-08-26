@@ -48,3 +48,25 @@ export async function getMe(){
         
     }
 }
+
+export async function verifyEmail({email,otp}){
+    try{
+        const response=await api.post('/api/auth/verify-email',{
+            email,otp
+        })
+        return response.data
+    } catch(err){
+        console.log(err);
+        
+    }
+}
+
+export async function resendOtp({email}){
+    try{
+        const response=await api.post('/api/auth/resend-otp',{email})
+        return response.data
+    }catch(err){
+        console.log(err);
+        
+    }
+}

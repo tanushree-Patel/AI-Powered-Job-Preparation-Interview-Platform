@@ -1,7 +1,5 @@
-import React from 'react'
 import { useAuth } from '../hooks/useAuth'
 import { Navigate } from 'react-router'
-import Navbar from './Navbar.jsx'
 
 const Protected = ({children}) => {
     const {user,loading}=useAuth()

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../auth.context";
-import { login, register, logout, getMe } from '../services/auth.api'
+import { login, register, logout, getMe, verifyEmail ,resendOtp} from '../services/auth.api'
 import { useEffect } from "react";
 
 export const useAuth = () => {
@@ -41,15 +41,37 @@ export const useAuth = () => {
             setloading(false)
         }
     }
+
+    const handleVerifyEmail = async ({ email, otp }) => {
+        setloading(true)
+        try {
+            const data = await verifyEmail({ email, otp })
+            return data;
+        } catch (err) {
+
+        } finally {
+            setloading(false)
+        }
+    }
+
+    const handleResendOtp=async({email})=>{
+        setloading(true)
+
+        try{
+            const data=await resendOtp({email})
+            return data;
+        }catch(err){
+
+        }finally{
+            setloading(false)
+        }
+    }
+
     useEffect(() => {
         const getAndSetuser = async () => {
             try {
                 const data = await getMe()
-                if (data?.user) {
-                    setuser(data.user)
-                } else {
-                    setuser(null)
-                }
+                setuser(data.user)
             } catch (err) {
                 setuser(null)
             } finally {
@@ -59,7 +81,7 @@ export const useAuth = () => {
         getAndSetuser()
     }, [])
 
-    return { user, loading, handleRegister, handleLogin, handleLogout }
+    return { user, loading, handleRegister, handleLogin, handleLogout, handleVerifyEmail ,handleResendOtp}
 
 
 }
