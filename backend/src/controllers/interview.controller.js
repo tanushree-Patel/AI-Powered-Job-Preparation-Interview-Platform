@@ -24,6 +24,7 @@ async function generateInterviewReportController(req, res) {
             jobDescription,
 
             matchScore: interviewReportByAi.matchScore,
+            atsBreakdown: interviewReportByAi.atsBreakdown,
             technicalQuestions: interviewReportByAi.technicalQuestions,
             behavioralQuestions: interviewReportByAi.behavioralQuestions,
             skillGaps: interviewReportByAi.skillGaps,

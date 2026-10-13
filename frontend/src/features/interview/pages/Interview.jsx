@@ -198,18 +198,107 @@ const Interview = () => {
                 <aside className='interview-sidebar'>
 
                     <div className="match-score">
-                        <p className="match-score-label">Match Score</p>
+                        <p className="match-score-label">ATS Match Score</p>
                         <div className={`match-score-ring ${scoreColor}`}>
-                            <span className="match-score-value">{report.matchScore}</span>
+                            <span className="match-score-value">{report.atsBreakdown?.overallScore ?? report.matchScore}</span>
                             <span className="match-score-pct">%</span>
                         </div>
-                        <p className="match-score-sub">Strong match for this role</p>
+                        <p className="match-score-sub">
+                            {(report.atsBreakdown?.overallScore ?? report.matchScore) >= 80
+                                ? 'Strong match for this role'
+                                : (report.atsBreakdown?.overallScore ?? report.matchScore) >= 60
+                                    ? 'Moderate match — targeted prep needed'
+                                    : 'Low match — significant gaps found'}
+                        </p>
+                        {report.atsBreakdown?.summaryFeedback && (
+                            <p className="ats-summary-feedback">{report.atsBreakdown.summaryFeedback}</p>
+                        )}
                     </div>
+
+                    {report.atsBreakdown && (
+                        <>
+                            <div className="sidebar-divider"></div>
+                            <div className="ats-metrics">
+                                <p className="sidebar-section-label">Alignment Breakdown</p>
+                                
+                                <div className="ats-metric-item">
+                                    <div className="ats-metric-header">
+                                        <span>Hard Skills</span>
+                                        <span className="ats-metric-val">{report.atsBreakdown.hardSkillsScore}%</span>
+                                    </div>
+                                    <div className="ats-metric-track">
+                                        <div 
+                                            className="ats-metric-fill ats-fill-skills" 
+                                            style={{ width: `${report.atsBreakdown.hardSkillsScore}%` }}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="ats-metric-item">
+                                    <div className="ats-metric-header">
+                                        <span>Experience</span>
+                                        <span className="ats-metric-val">{report.atsBreakdown.experienceScore}%</span>
+                                    </div>
+                                    <div className="ats-metric-track">
+                                        <div 
+                                            className="ats-metric-fill ats-fill-exp" 
+                                            style={{ width: `${report.atsBreakdown.experienceScore}%` }}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="ats-metric-item">
+                                    <div className="ats-metric-header">
+                                        <span>Education</span>
+                                        <span className="ats-metric-val">{report.atsBreakdown.educationScore}%</span>
+                                    </div>
+                                    <div className="ats-metric-track">
+                                        <div 
+                                            className="ats-metric-fill ats-fill-edu" 
+                                            style={{ width: `${report.atsBreakdown.educationScore}%` }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {report.atsBreakdown.matchedKeywords?.length > 0 && (
+                                <>
+                                    <div className="sidebar-divider"></div>
+                                    <div className="keywords-section">
+                                        <p className="sidebar-section-label">Matched Keywords ({report.atsBreakdown.matchedKeywords.length})</p>
+                                        <div className="keywords-list">
+                                            {report.atsBreakdown.matchedKeywords.map((kw, i) => (
+                                                <span key={i} className="kw-tag kw-tag-matched">
+                                                    ✓ {kw}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+
+                            {report.atsBreakdown.missingKeywords?.length > 0 && (
+                                <>
+                                    <div className="sidebar-divider"></div>
+                                    <div className="keywords-section">
+                                        <p className="sidebar-section-label">Missing Critical Keywords ({report.atsBreakdown.missingKeywords.length})</p>
+                                        <div className="keywords-list">
+                                            {report.atsBreakdown.missingKeywords.map((kw, i) => (
+                                                <span key={i} className="kw-tag kw-tag-missing">
+                                                    + {kw}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+                        </>
+                    )}
 
                     <div className="sidebar-divider"></div>
 
                     <div className="skill-gaps">
-                        <p className="skill-gaps-label">Skill Gaps</p>
+                        <p className="sidebar-section-label">Skill Gaps ({report.skillGaps.length})</p>
                         <div className="skill-gaps-list">
                             {report.skillGaps.map((gap, i) => (
                                 <span key={i} className={`skill-tag skill-tag-${gap.severity}`}>

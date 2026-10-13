@@ -9,6 +9,15 @@ const ai = new GoogleGenAI({
 
 const interviewReportSchema = z.object({
     matchScore: z.number().describe("A score between 0 and 100 indicating how well the candidate's profile matches the job describe"),
+    atsBreakdown: z.object({
+        overallScore: z.number().describe("Overall ATS compatibility percentage (0-100)"),
+        hardSkillsScore: z.number().describe("Score evaluating technical & hard skills alignment (0-100)"),
+        experienceScore: z.number().describe("Score evaluating experience relevance and depth (0-100)"),
+        educationScore: z.number().describe("Score evaluating education and credentials alignment (0-100)"),
+        matchedKeywords: z.array(z.string()).describe("List of exact or closely matched skills and keywords found in both resume and job description"),
+        missingKeywords: z.array(z.string()).describe("List of critical skills or keywords present in job description but missing from candidate's profile"),
+        summaryFeedback: z.string().describe("Concise 1-2 sentence executive assessment of ATS readiness")
+    }).describe("Structured, multi-factor ATS compatibility breakdown"),
     technicalQuestions: z.array(z.object({
         question: z.string().describe("The technical question can be asked in the interview"),
         intention: z.string().describe("The intention of interviewer behind asking this question"),

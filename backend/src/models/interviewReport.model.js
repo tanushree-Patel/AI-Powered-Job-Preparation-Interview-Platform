@@ -96,6 +96,18 @@ const preparationPlanSchema = new mongoose.Schema({
     } ]
 })
 
+const atsBreakdownSchema = new mongoose.Schema({
+    overallScore: { type: Number, default: 0 },
+    hardSkillsScore: { type: Number, default: 0 },
+    experienceScore: { type: Number, default: 0 },
+    educationScore: { type: Number, default: 0 },
+    matchedKeywords: [ { type: String } ],
+    missingKeywords: [ { type: String } ],
+    summaryFeedback: { type: String }
+}, {
+    _id: false
+})
+
 const interviewReportSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -115,6 +127,10 @@ const interviewReportSchema = new mongoose.Schema({
         type: Number,
         min: 0,
         max: 100,
+    },
+    atsBreakdown: {
+        type: atsBreakdownSchema,
+        default: () => ({})
     },
     technicalQuestions: [ technicalQuestionSchema ],
     behavioralQuestions: [ behavioralQuestionSchema ],
