@@ -1,56 +1,63 @@
-const express=require('express')
-const authController=require('../controllers/auth.controller')
-const authMiddleware=require('../middlewares/auth.middleware')
+const express = require('express')
+const authController = require('../controllers/auth.controller')
+const authMiddleware = require('../middlewares/auth.middleware')
 
-const authRouter=express.Router()
+const authRouter = express.Router()
 
 /**
  * @route POST /api/auth/register
  * @description Register a new user
  * @access Public
  */
-authRouter.post('/register',authController.registerUserController)
+authRouter.post('/register', authController.registerUserController)
 
 /**
  * @route POST/api/auth/login
  * @description login user with email and password
  * @access Public
  */
-authRouter.post('/login',authController.loginUserController)
+authRouter.post('/login', authController.loginUserController)
 
 /**
  * @route GET/api/auth/logout
  * @description clear token from user cookie and add the token in blacklist
  * @access Public
  */
-authRouter.get('/logout',authController.logoutUserController)
+authRouter.get('/logout', authController.logoutUserController)
 
 /**
  * @route GET/api/auth/get-me
  * @description get the current logged in user details
  * @access Private
  */
-authRouter.get('/get-me',authMiddleware.authUser,authController.getMeController)
+authRouter.get('/get-me', authMiddleware.authUser, authController.getMeController)
 
 /**
  * @route POST/api/auth/verify-email
  * @description verify email with OTP
  * @access Public
  */
-authRouter.post('/verify-email',authController.verifyEmailController)
+authRouter.post('/verify-email', authController.verifyEmailController)
+
+/**
+ * @route POST /api/auth/resend-otp
+ * @description Resend a new OTP
+ * @access Public
+ */
+authRouter.post('/resend-otp', authController.resendOtpController)
 
 /**
  * @route GET/api/auth/refresh-token
  * @description refresh access token
  * @access Public
  */
-authRouter.get('/refresh-token',authController.refreshTokenController)
+authRouter.get('/refresh-token', authController.refreshTokenController)
 
 /**
  * @route GET/api/auth/logout-all
  * @description logout from all devices by revoking all sessions
  * @access Public
  */
-authRouter.get('/logout-all',authController.logoutAllUserController)
+authRouter.get('/logout-all', authController.logoutAllUserController)
 
-module.exports=authRouter
+module.exports = authRouter

@@ -121,20 +121,19 @@ const VerifyOtp = () => {
               disabled={timeLeft<=0}
             />
           </div>
-    <div className="timer-container">
+          <div className="timer-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', margin: '0.75rem 0' }}>
             <span className={`timer-text ${timeLeft === 0 ? 'expired' : ''}`}>
               {timeLeft > 0 ? `Time remaining: ${formatTime(timeLeft)}` : "OTP expired!"}
             </span>
-            {timeLeft === 0 && (
-              <button 
-                type="button" 
-                onClick={handleResend} 
-                disabled={resending}
-                className="button resend-btn"
-              >
-                {resending ? "Resending..." : "Resend OTP"}
-              </button>
-            )}
+            <button 
+              type="button" 
+              onClick={handleResend} 
+              disabled={resending}
+              className="button resend-btn"
+              style={{ background: 'none', border: 'none', color: '#c28488', textDecoration: 'underline', cursor: 'pointer', fontSize: '0.875rem' }}
+            >
+              {resending ? "Sending..." : "Resend OTP"}
+            </button>
           </div>
 
 

@@ -43,6 +43,9 @@ async function registerUserController(req, res) {
         })
 
         const otp = generateOTP()
+        console.log("=========================================")
+        console.log(`🔑 REGISTRATION OTP FOR ${email}: ${otp}`)
+        console.log("=========================================")
         const html = getOtpHtml(otp)
         const otpHash = await bcrypt.hash(otp, 10)
 
@@ -416,8 +419,10 @@ async function resendOtpController(req, res) {
         await otpModel.deleteMany({ email })
 
         const otp = generateOTP()
+
+        console.log(`RESEND OTP FOR ${email}: ${otp}`)
         const html = getOtpHtml(otp)
-        const otphash = await bcrypt(otp, 10)
+        const otpHash = await bcrypt.hash(otp, 10)
 
         await otpModel.create({
             email,
@@ -431,8 +436,10 @@ async function resendOtpController(req, res) {
             message: "New OTP send successfully"
         })
     } catch (err) {
+        console.error("Error during OTP resend:", err)
         return res.status(500).json({
-            message: "Internal server error  during OTP resend"
+            message: "Internal server error during OTP resend",
+            error: err.message
         })
     }
 }
